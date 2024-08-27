@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -13,12 +13,7 @@ class Programa
         while (executarPrograma)
         {
             Console.Clear();
-            Console.WriteLine("Menu de Opções:");
-            Console.WriteLine("1 - Para adicionar os números à lista");
-            Console.WriteLine("2 - Para exibir os números da lista");
-            Console.WriteLine("3 - Para realizar o cálculo de todos os números inseridos");
-            Console.WriteLine("4 - Para encerrar o programa");
-            Console.Write("Escolha uma opção: ");
+            ExibirMenu();
             string escolha = Console.ReadLine();
 
             switch (escolha)
@@ -36,26 +31,40 @@ class Programa
                     break;
 
                 case "4":
-                    Console.WriteLine("Encerrando o programa...");
+                    Console.WriteLine("\nEncerrando o programa... Pressione qualquer tecla para sair.");
                     executarPrograma = false;
+                    Console.ReadKey();
                     break;
 
                 default:
-                    Console.WriteLine("Opção inválida. Tente novamente.");
+                    Console.WriteLine("\nOpção inválida. Tente novamente.");
+                    Pausa();
                     break;
-            }
-
-            if (executarPrograma)
-            {
-                Console.WriteLine("Pressione qualquer tecla para continuar...");
-                Console.ReadKey();
             }
         }
     }
 
+    static void ExibirMenu()
+    {
+        Console.WriteLine("====================================");
+        Console.WriteLine("         Menu de Opções             ");
+        Console.WriteLine("====================================");
+        Console.WriteLine("1 - Adicionar números à lista");
+        Console.WriteLine("2 - Exibir números da lista");
+        Console.WriteLine("3 - Calcular a soma dos números");
+        Console.WriteLine("4 - Encerrar o programa");
+        Console.WriteLine("------------------------------------");
+        Console.Write("Escolha uma opção: ");
+    }
+
     static void InserirNumeros()
     {
-        Console.Write("Insira os números para somá-los (insira 'done' para terminar): ");
+        Console.Clear();
+        Console.WriteLine("====================================");
+        Console.WriteLine("     Inserir Números                ");
+        Console.WriteLine("====================================");
+        Console.WriteLine("Insira os números para somá-los (insira 'done' para terminar): ");
+
         while (true)
         {
             string entrada = Console.ReadLine();
@@ -76,24 +85,38 @@ class Programa
             }
         }
 
-        Thread.Sleep(2000);
-        Console.Clear();
+        Pausa();
     }
 
     static void ExibirNumeros()
     {
-        Console.WriteLine("Números na lista:");
-        for (int i = 0; i < ListaDeSoma.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}: {ListaDeSoma[i]}");
-        }
-        Console.WriteLine("Digite qualquer tecla para voltar ao menu principal.");
-        Console.ReadKey();
         Console.Clear();
+        Console.WriteLine("====================================");
+        Console.WriteLine("     Números na Lista               ");
+        Console.WriteLine("====================================");
+
+        if (ListaDeSoma.Count == 0)
+        {
+            Console.WriteLine("A lista está vazia.");
+        }
+        else
+        {
+            for (int i = 0; i < ListaDeSoma.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}: {ListaDeSoma[i]}");
+            }
+        }
+
+        Pausa();
     }
 
     static void CalcularSoma()
     {
+        Console.Clear();
+        Console.WriteLine("====================================");
+        Console.WriteLine("     Cálculo da Soma                ");
+        Console.WriteLine("====================================");
+
         int soma = 0;
         foreach (int numero in ListaDeSoma)
         {
@@ -101,8 +124,13 @@ class Programa
         }
 
         Console.WriteLine($"A soma de todos os números inseridos é: {soma}");
-        Console.WriteLine("Digite qualquer tecla para voltar ao menu principal.");
+
+        Pausa();
+    }
+
+    static void Pausa()
+    {
+        Console.WriteLine("\nDigite qualquer tecla para voltar ao menu principal.");
         Console.ReadKey();
-        Console.Clear();
     }
 }
